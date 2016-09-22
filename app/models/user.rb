@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   #   Gus Portokalos <gus@weareallfruit.net>
   #   Bruce Wayne <bruce@imbatman.com>
   #   Virgil Brigman <virgil@rigworkersunion.org>
-  #   Lindsey Brigman lindsey@iseealiens.net
+  #   Lindsey Brigman <lindsey@iseealiens.net>
 
   def splitted_details
     name_email_combi.split(' ')
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     splitted_details[1]
   end
 
-  def email_address
+  def email
     splitted_details[2].gsub('<','').gsub('>','')
   end
 
