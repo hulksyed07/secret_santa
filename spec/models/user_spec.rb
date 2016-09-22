@@ -12,13 +12,6 @@ RSpec.describe User, :type => :model do
     @user_7 = User.create(:name_email_combi => "Lindsey Brigman <lindsey@iseealiens.net>")
   end
 
-  # it "orders by last name" do
-  #   lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
-  #   chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
-
-  #   expect(User.ordered_by_last_name).to eq([chelimsky, lindeman])
-  # end
-
   it "fetches the first_name of the user" do
     first_name = @user_1.first_name
     expect(first_name).to eq('Luke')
@@ -49,10 +42,5 @@ RSpec.describe User, :type => :model do
     secret_santa_user = @user_1.secret_santa_user
     expect(secret_santa_user.family_name).not_to eql(@user_1.family_name)
   end
-
-  it "should verify that secret santa user's family_name is not same as that of given user" do
-    secret_santa_user = @user_1.secret_santa_user
-    expect(secret_santa_user.family_name).not_to eql(@user_1.family_name)
-  end  
 
 end

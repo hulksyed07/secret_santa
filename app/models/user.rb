@@ -1,15 +1,9 @@
 class User < ActiveRecord::Base
 	validates_presence_of :name_email_combi
 
+  @@already_choosen_santas = []
 
-  # Test Data:
-  #   Luke Skywalker <luke@theforce.net>
-  #   Leia Skywalker <leia@therebellion.org>
-  #   Toula Portokalos <toula@manhunter.org>
-  #   Gus Portokalos <gus@weareallfruit.net>
-  #   Bruce Wayne <bruce@imbatman.com>
-  #   Virgil Brigman <virgil@rigworkersunion.org>
-  #   Lindsey Brigman <lindsey@iseealiens.net>
+  scope :other_users, lambda { |id| where('id != ?', id)}
 
   def splitted_details
     name_email_combi.split(' ')
@@ -25,6 +19,18 @@ class User < ActiveRecord::Base
 
   def email
     splitted_details[2].gsub('<','').gsub('>','')
+  end
+
+  def secret_santa_user
+    users = User.other_users(self.id)
+    qualifying_users = []
+    users.each do |user|
+      qualifying_users << user unless (user.family_name == self.family_name) || (@@already_choosen_santas.include?(user))
+    end
+    user = qualifying_users.shuffle[0]
+    @@already_choosen_santas << user
+    puts @@already_choosen_santas.inspect
+    user
   end
 
 end
