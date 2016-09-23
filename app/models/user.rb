@@ -33,4 +33,8 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.reset_secret_santas
+    @@already_choosen_santas = []
+  end
+
 end
